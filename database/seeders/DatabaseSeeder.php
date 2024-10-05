@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $timezones = ['CET', 'CST', 'GMT+1'];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::factory(20)->create()->each(function ($user) use ($timezones) {
+            $user->timezone = $timezones[array_rand($timezones)];
+            $user->save();
+        });
     }
 }
