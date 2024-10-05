@@ -41,20 +41,8 @@ class SyncUserAttributes extends Command
                 ],
             ];
 
-            try {
-                $response = $client->post(env('THIRD_PARTY_API_URL'), [
-                    'json' => $payload,
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . env('THIRD_PARTY_API_KEY'),
-                    ],
-                ]);
+            $this->info('Batch update: ' . json_encode($payload['batches']['subscribers']));
 
-                $responseBody = $response->getBody()->getContents();
-                $this->info($responseBody);
-
-            } catch (\Exception $e) {
-                $this->error('Failed to process batch: ' . $e->getMessage());
-            }
         }
     }
 }
